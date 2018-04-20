@@ -37,6 +37,7 @@ The files `code_format_profile.xml` and `code_cleanup_profile.xml` in the root o
 
 Will create formatting and cleanup profiles named henry. Some aspects of these will be changed in the future (e.g. the use of columns to layout fields) but they should be used while editing pitest to maintain consistency.
 
-## InteliJ
+## IntelliJ
 
-?
+The code format file can be used in IntelliJ with the "Eclipse Code Formatter" plugin (https://plugins.jetbrains.com/plugin/6546-eclipse-code-formatter).
+TODO: apparently this plugin can't deal with two files, but both files could be merged. Check that it works well and test with eclipse that it also would work.
