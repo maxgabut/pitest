@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../style.css">
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 </head>
 <body>
 
@@ -27,7 +28,7 @@ $i$. $mutation.details.location$ : $mutation.details.htmlSafeDescription$ &rarr;
 </span>
 </span>
 </td>
-<td class='$line.styles.code$'><pre><span  class='$line.styles.mutation$'>$line.text$</span></pre></td></tr>
+<td class='$line.styles.code$'><pre class=prettyprint lang-java><span  class='$line.styles.mutation$'>$line.text$</span></pre></td></tr>
 }$
 
 
