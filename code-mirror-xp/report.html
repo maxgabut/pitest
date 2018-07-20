@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="lib/codemirror.js"></script>
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <script src="mode/clike/clike.js"></script>
+    <style>
+        .CodeMirror {height: auto;}
+    </style>
+</head>
+<body>
+
+    <h1>Bonjour</h1>
+    <textArea id="da-code"></textArea>
+
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("da-code"), {
+            lineNumbers: true,
+            mode: "text/x-java",
+            readOnly: true
+        });
+
+        editor.setValue(
+            "package org.pitest.aggregate;\n" +
+            "\n" +
+            "import java.io.File;\n" +
+            "import java.util.Collection;\n" +
+            "import java.util.Map;\n" +
+            "\n" +
+            "import org.pitest.classinfo.ClassName;\n" +
+            "import org.pitest.coverage.BlockCoverage;\n" +
+            "import org.pitest.coverage.BlockLocation;\n" +
+            "import org.pitest.mutationtest.engine.Location;\n" +
+            "import org.pitest.mutationtest.engine.MethodName;\n" +
+            "\n" +
+            "class BlockCoverageDataLoader extends DataLoader<BlockCoverage> {\n" +
+            "\n" +
+            "  private static final String METHOD     = \"method\";\n" +
+            "  private static final String CLASSNAME  = \"classname\";\n" +
+            "  private static final String NUMBER     = \"number\";\n" +
+            "  private static final String TESTS      = \"tests\";\n" +
+            "\n" +
+            "  private static final String OPEN_PAREN = \"(\";\n" +
+            "\n" +
+            "  BlockCoverageDataLoader(final Collection<File> filesToLoad) {\n" +
+            "    super(filesToLoad);\n" +
+            "  }\n" +
+            "\n" +
+            "  @Override\n" +
+            "  protected BlockCoverage mapToData(final Map<String, Object> map) {\n" +
+            "    final String method = (String) map.get(METHOD);\n" +
+            "    final Location location = new Location(ClassName.fromString((String) map.get(CLASSNAME)),\n" +
+            "        MethodName.fromString(method.substring(0, method.indexOf(OPEN_PAREN))), method.substring(method.indexOf(OPEN_PAREN)));\n" +
+            "\n" +
+            "    final BlockLocation blockLocation = new BlockLocation(location, Integer.parseInt((String) map.get(NUMBER)));\n" +
+            "\n" +
+            "    @SuppressWarnings(\"unchecked\")\n" +
+            "    final Collection<String> tests = (Collection<String>) map.get(TESTS);\n" +
+            "\n" +
+            "    return new BlockCoverage(blockLocation, tests);\n" +
+            "  }\n" +
+            "\n" +
+            "}");
+    </script>
+</body>
+</html>
