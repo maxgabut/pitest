@@ -10,22 +10,18 @@
         .mutation-gutter {width: 10px;}
 
         .covered-gutter-mark {
-            width: 100%;
             background-color: #ddffdd;
         }
 
         .uncovered-gutter-mark {
-            width: 100%;
             background-color: #ffdddd;
         }
 
         .killed-mutant-gutter-mark {
-            width: 100%;
             background-color: #aaffaa;
         }
 
         .survived-mutant-gutter-mark {
-            width: 100%;
             background-color: #ffaaaa;
         }
     </style>
@@ -85,37 +81,28 @@
             "\n" +
             "}");
 
-
-        function markLineCovered(lineNumber) {
+        function addGutterMarker(lineNumber, gutter, tagClassName) {
             var marker = document.createElement("div");
-            marker.className = "covered-gutter-mark";
+            marker.className = tagClassName;
             marker.innerHTML = "&nbsp;";
 
-            editor.setGutterMarker(lineNumber, "coverage-gutter", marker);
+            editor.setGutterMarker(lineNumber, gutter,  marker);
+        }
+
+        function markLineCovered(lineNumber) {
+            addGutterMarker(lineNumber, "coverage-gutter", "covered-gutter-mark");
         }
 
         function markLineUncovered(lineNumber) {
-            var marker = document.createElement("div");
-            marker.className = "uncovered-gutter-mark";
-            marker.innerHTML = "&nbsp;";
-
-            editor.setGutterMarker(lineNumber, "coverage-gutter", marker);
+            addGutterMarker(lineNumber, "coverage-gutter", "uncovered-gutter-mark");
         }
 
         function markLineKilled(lineNumber) {
-            var marker = document.createElement("div");
-            marker.className = "killed-mutant-gutter-mark";
-            marker.innerHTML = "&nbsp;";
-
-            editor.setGutterMarker(lineNumber, "mutation-gutter", marker);
+            addGutterMarker(lineNumber, "mutation-gutter", "killed-mutant-gutter-mark");
         }
 
         function markLineSurvived(lineNumber) {
-            var marker = document.createElement("div");
-            marker.className = "survived-mutant-gutter-mark";
-            marker.innerHTML = "&nbsp;";
-
-            editor.setGutterMarker(lineNumber, "mutation-gutter", marker);
+            addGutterMarker(lineNumber, "mutation-gutter", "survived-mutant-gutter-mark");
         }
 
         markLineCovered(10);
