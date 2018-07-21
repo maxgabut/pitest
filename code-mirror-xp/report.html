@@ -6,6 +6,28 @@
     <script src="mode/clike/clike.js"></script>
     <style>
         .CodeMirror {height: auto;}
+        .coverage-gutter {width: 10px;}
+        .mutation-gutter {width: 10px;}
+
+        .covered-gutter-mark {
+            width: 100%;
+            background-color: #ddffdd;
+        }
+
+        .uncovered-gutter-mark {
+            width: 100%;
+            background-color: #ffdddd;
+        }
+
+        .killed-mutant-gutter-mark {
+            width: 100%;
+            background-color: #aaffaa;
+        }
+
+        .survived-mutant-gutter-mark {
+            width: 100%;
+            background-color: #ffaaaa;
+        }
     </style>
 </head>
 <body>
@@ -17,7 +39,8 @@
         var editor = CodeMirror.fromTextArea(document.getElementById("da-code"), {
             lineNumbers: true,
             mode: "text/x-java",
-            readOnly: true
+            readOnly: true,
+            gutters: ["CodeMirror-linenumbers", "coverage-gutter", "mutation-gutter"]
         });
 
         editor.setValue(
@@ -61,6 +84,50 @@
             "  }\n" +
             "\n" +
             "}");
+
+
+        function markLineCovered(lineNumber) {
+            var marker = document.createElement("div");
+            marker.className = "covered-gutter-mark";
+            marker.innerHTML = "&nbsp;";
+
+            editor.setGutterMarker(lineNumber, "coverage-gutter", marker);
+        }
+
+        function markLineUncovered(lineNumber) {
+            var marker = document.createElement("div");
+            marker.className = "uncovered-gutter-mark";
+            marker.innerHTML = "&nbsp;";
+
+            editor.setGutterMarker(lineNumber, "coverage-gutter", marker);
+        }
+
+        function markLineKilled(lineNumber) {
+            var marker = document.createElement("div");
+            marker.className = "killed-mutant-gutter-mark";
+            marker.innerHTML = "&nbsp;";
+
+            editor.setGutterMarker(lineNumber, "mutation-gutter", marker);
+        }
+
+        function markLineSurvived(lineNumber) {
+            var marker = document.createElement("div");
+            marker.className = "survived-mutant-gutter-mark";
+            marker.innerHTML = "&nbsp;";
+
+            editor.setGutterMarker(lineNumber, "mutation-gutter", marker);
+        }
+
+        markLineCovered(10);
+        markLineCovered(11);
+        markLineUncovered(12);
+        markLineUncovered(13);
+
+
+        markLineKilled(10);
+        markLineKilled(11);
+        markLineSurvived(12);
+        markLineSurvived(13);
     </script>
 </body>
 </html>
