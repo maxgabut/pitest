@@ -47,31 +47,31 @@ public class AbstractPitMojo extends AbstractMojo {
    * Classes to include in mutation test
    */
   @Parameter(property = "targetClasses")
-  protected ArrayList<String>         targetClasses;
+  protected List<String>              targetClasses;
 
   /**
    * Tests to run
    */
   @Parameter(property = "targetTests")
-  protected ArrayList<String>         targetTests;
+  protected List<String>              targetTests;
 
   /**
    * Methods not to mutate
    */
   @Parameter(property = "excludedMethods")
-  private ArrayList<String>           excludedMethods;
+  private List<String>                excludedMethods;
 
   /**
    * Classes not to mutate
    */
   @Parameter(property = "excludedClasses")
-  private ArrayList<String>           excludedClasses;
+  private List<String>                excludedClasses;
   
   /**
    * Classes not to run tests from
    */
   @Parameter(property = "excludedTestClasses")
-  private ArrayList<String>           excludedTestClasses;
+  private List<String>                excludedTestClasses;
 
 
   /**
@@ -79,7 +79,7 @@ public class AbstractPitMojo extends AbstractMojo {
    * the same line as a match.
    */
   @Parameter(property = "avoidCallsTo")
-  private ArrayList<String>           avoidCallsTo;
+  private List<String>                avoidCallsTo;
 
   /**
    * Base directory where all reports are written to.
@@ -141,13 +141,13 @@ public class AbstractPitMojo extends AbstractMojo {
    * Mutation operators to apply
    */
   @Parameter(property = "mutators")
-  private ArrayList<String>           mutators;
+  private List<String>                mutators;
   
   /**
    * Mutation operators to apply
    */
   @Parameter(property = "features")
-  private ArrayList<String>           features;
+  private List<String>                features;
 
 
   /**
@@ -172,13 +172,13 @@ public class AbstractPitMojo extends AbstractMojo {
    * Arguments to pass to child processes
    */
   @Parameter
-  private ArrayList<String>           jvmArgs;
+  private List<String>                jvmArgs;
 
   /**
    * Formats to output during analysis phase
    */
   @Parameter(property = "outputFormats")
-  private ArrayList<String>           outputFormats;
+  private List<String>                outputFormats;
 
   /**
    * Output verbose logging
@@ -202,19 +202,19 @@ public class AbstractPitMojo extends AbstractMojo {
    * TestNG Groups/JUnit Categories to exclude
    */
   @Parameter(property = "excludedGroups")
-  private ArrayList<String>           excludedGroups;
+  private List<String>                excludedGroups;
 
   /**
    * TestNG Groups/JUnit Categories to include
    */
   @Parameter(property = "includedGroups")
-  private ArrayList<String>           includedGroups;
+  private List<String>                includedGroups;
 
   /**
    * Test methods that should be included for challenging the mutants
    */
   @Parameter(property = "includedTestMethods")
-  private ArrayList<String>           includedTestMethods;
+  private List<String>                includedTestMethods;
 
   /**
    * Whether to create a full mutation matrix.
@@ -278,7 +278,7 @@ public class AbstractPitMojo extends AbstractMojo {
    * PIT is launched.
    */
   @Parameter(property = "additionalClasspathElements")
-  private ArrayList<String>           additionalClasspathElements;
+  private List<String>                additionalClasspathElements;
 
   /**
    * List of classpath entries, formatted as "groupId:artifactId", which should
@@ -286,13 +286,13 @@ public class AbstractPitMojo extends AbstractMojo {
    * after the corresponding Surefire/Failsafe property.
    */
   @Parameter(property = "classpathDependencyExcludes")
-  private ArrayList<String>           classpathDependencyExcludes;
+  private List<String>                classpathDependencyExcludes;
   
   /**
    * 
    */
   @Parameter(property = "excludedRunners")
-  private ArrayList<String>           excludedRunners;
+  private List<String>                excludedRunners;
 
   /**
    * When set indicates that analysis of this project should be skipped
@@ -522,7 +522,7 @@ public class AbstractPitMojo extends AbstractMojo {
     return this.timeoutConstant;
   }
 
-  public ArrayList<String> getExcludedTestClasses() {
+  public List<String> getExcludedTestClasses() {
     return excludedTestClasses;
   }
 
@@ -664,11 +664,11 @@ public class AbstractPitMojo extends AbstractMojo {
     return this.withHistory;
   }
 
-  public ArrayList<String> getExcludedRunners() {
+  public List<String> getExcludedRunners() {
     return excludedRunners;
   }
   
-  public ArrayList<String> getFeatures() {
+  public List<String> getFeatures() {
     return features;
   }
 
