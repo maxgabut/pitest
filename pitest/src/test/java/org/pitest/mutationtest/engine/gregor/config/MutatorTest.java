@@ -232,4 +232,19 @@ public class MutatorTest {
             "org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator"
         );
   }
+
+  @Test
+  public void defaultsShouldContainTheRightMutators() {
+    assertThat(Mutator.defaults())
+        .extracting(MethodMutatorFactory::getGloballyUniqueId)
+        .containsExactly(
+            "org.pitest.mutationtest.engine.gregor.mutators.InvertNegsMutator",
+            "org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator",
+            "org.pitest.mutationtest.engine.gregor.mutators.MathMutator",
+            "org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallsMutator",
+            "org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator",
+            "org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator",
+            "org.pitest.mutationtest.engine.gregor.mutators.IncrementsMutator"
+        );
+  }
 }
