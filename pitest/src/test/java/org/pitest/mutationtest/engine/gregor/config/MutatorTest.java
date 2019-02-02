@@ -52,16 +52,13 @@ public class MutatorTest {
 
   @Test
   public void allContainsReplaceMethodMutator() throws Exception {
-    assertThat(Mutator.all()).contains(
+    assertThat(Mutator.fromStrings("ALL")).contains(
         ArgumentPropagationMutator.ARGUMENT_PROPAGATION_MUTATOR);
   }
 
   @Test
   public void allShouldHaveTheSameContentNoMatterTheWayToGetIt() {
-    assertThat(Mutator.all())
-        .hasSameElementsAs(Mutator.fromStrings(singletonList("ALL")));
-
-    assertThat(Mutator.all())
+    assertThat(Mutator.fromStrings("ALL"))
         .hasSameElementsAs(Mutator.fromStrings("ALL"));
   }
 
@@ -85,7 +82,7 @@ public class MutatorTest {
 
   @Test
   public void allShouldContainTheRightMutators() {
-    assertThat(Mutator.all())
+    assertThat(Mutator.fromStrings("ALL"))
         .extracting(MethodMutatorFactory::getGloballyUniqueId)
         .containsExactly(
             "org.pitest.mutationtest.engine.gregor.mutators.ArgumentPropagationMutator",

@@ -98,7 +98,7 @@ public class MutationTestSummaryDataTest {
   public void shouldReturnSortedListOfMutators() {
     this.testee = buildSummaryDataMutators();
 
-    TreeSet<Object> sortedSet = Mutator.all().stream()
+    TreeSet<Object> sortedSet = Mutator.fromStrings("ALL").stream()
             .map(MethodMutatorFactory::getName)
             .collect(TreeSet::new, TreeSet::add, TreeSet::addAll);
 
@@ -131,7 +131,7 @@ public class MutationTestSummaryDataTest {
   private MutationTestSummaryData buildSummaryDataMutators() {
     final Collection<ClassInfo> classes = Collections.emptyList();
     final Collection<MutationResult> results = Collections.emptyList();
-    final Collection<String> mutators = Mutator.all().stream()
+    final Collection<String> mutators = Mutator.fromStrings("ALL").stream()
             .map(MethodMutatorFactory::getName)
             .collect(Collectors.toList());
     return new MutationTestSummaryData(FILE_NAME, results, mutators, classes, 0);

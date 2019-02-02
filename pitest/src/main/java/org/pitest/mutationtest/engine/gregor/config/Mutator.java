@@ -181,7 +181,6 @@ public final class Mutator {
     addGroup("REMOVE_SWITCH", RemoveSwitchMutator.makeMutators());
     addGroup("DEFAULTS", defaults());
     addGroup("STRONGER", stronger());
-    addGroup("ALL", all());
     addGroup("NEW_DEFAULTS", newDefaults());
     addGroup("AOR", aor());
     addGroup("AOD", aod());
@@ -190,6 +189,7 @@ public final class Mutator {
     addGroup("ROR", ror());
     addGroup("UOI", uoi());
 
+    addGroup("ALL", fromStrings(MUTATORS.keySet()));
   }
   
   /**
@@ -282,10 +282,6 @@ public final class Mutator {
     add("UOI2", UOI2Mutator.UOI_2_MUTATOR);
     add("UOI3", UOI3Mutator.UOI_3_MUTATOR);
     add("UOI4", UOI4Mutator.UOI_4_MUTATOR);
-  }
-
-  public static Collection<MethodMutatorFactory> all() {
-    return fromStrings(MUTATORS.keySet());
   }
 
   private static Collection<MethodMutatorFactory> stronger() {

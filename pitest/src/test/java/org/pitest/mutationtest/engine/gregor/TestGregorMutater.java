@@ -92,7 +92,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldNotMutateCodeGeneratedByCompilerToImplementEnums() {
-    createTesteeWith(Mutator.all());
+    createTesteeWith(Mutator.fromStrings("ALL"));
     final Collection<MutationDetails> actualDetails = findMutationsFor(AnEnum.class);
     assertTrue(actualDetails.isEmpty());
   }
@@ -110,7 +110,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldMutateCustomConstructorsAddedToEnums() {
-    createTesteeWith(Mutator.all());
+    createTesteeWith(Mutator.fromStrings("ALL"));
     final Collection<MutationDetails> actualDetails = findMutationsFor(EnumWithCustomConstructor.class);
     assertThat(actualDetails).isNotEmpty();
   }
@@ -151,7 +151,7 @@ public class TestGregorMutater extends MutatorTestBase {
   @Test
   public void shouldNotMutateGroovyClasses() {
     createTesteeWith(new ResourceFolderByteArraySource(),
-        i -> true, Mutator.all());
+        i -> true, Mutator.fromStrings("ALL"));
     final Collection<MutationDetails> actualDetails = findMutationsFor("groovy/SomeGroovyCode");
     assertTrue(actualDetails.isEmpty());
   }
@@ -159,7 +159,7 @@ public class TestGregorMutater extends MutatorTestBase {
   @Test
   public void shouldNotMutateGroovyClosures() {
     createTesteeWith(new ResourceFolderByteArraySource(),
-        i -> true, Mutator.all());
+        i -> true, Mutator.fromStrings("ALL"));
     final Collection<MutationDetails> actualDetails = findMutationsFor("groovy/SomeGroovyCode$_mapToString_closure2");
     assertTrue(actualDetails.isEmpty());
   }

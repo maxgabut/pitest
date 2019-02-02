@@ -11,7 +11,8 @@ public class ImplicitNullCheckFilterTest {
   private static final String             PATH      = "implicitnullcheck/{0}_{1}";
 
   ImplicitNullCheckFilter testee = new ImplicitNullCheckFilter();
-  FilterTester verifier = new FilterTester(PATH, this.testee, Mutator.all());
+  FilterTester verifier = new FilterTester(PATH, this.testee,
+      Mutator.fromStrings("ALL"));
 
   @Test
   public void shouldDeclareTypeAsFilter() {

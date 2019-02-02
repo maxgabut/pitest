@@ -27,13 +27,15 @@ public class AvoidForLoopCounterTest {
 
   @Test
   public void shouldNotFilterMutantsWhenNoLoopPresent() {
-    final FilterTester verifier = new FilterTester(PATH, this.testee, Mutator.all());
+    final FilterTester verifier = new FilterTester(PATH, this.testee,
+        Mutator.fromStrings("ALL"));
     verifier.assertFiltersNMutationFromSample(0, "IHaveNoLoops");
   }
 
   @Test
   public void shouldNotFilterIncrementMutantsInConditions() {
-    final FilterTester verifier = new FilterTester(PATH, this.testee, Mutator.all());
+    final FilterTester verifier = new FilterTester(PATH, this.testee,
+        Mutator.fromStrings("ALL"));
     verifier.assertFiltersNMutationFromClass(0, HasIncrementsInIfs.class);
   }
 
