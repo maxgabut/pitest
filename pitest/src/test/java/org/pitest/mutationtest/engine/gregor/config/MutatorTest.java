@@ -14,6 +14,8 @@
  */
 package org.pitest.mutationtest.engine.gregor.config;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
@@ -30,7 +32,7 @@ public class MutatorTest {
   @Test
   public void shouldReturnRequestedMutators() {
     assertThat(parseStrings("MATH", "INVERT_NEGS")).containsAll(
-        Arrays.asList(MathMutator.MATH_MUTATOR,
+        asList(MathMutator.MATH_MUTATOR,
             InvertNegsMutator.INVERT_NEGS_MUTATOR));
   }
 
@@ -46,7 +48,7 @@ public class MutatorTest {
   }
 
   private Collection<MethodMutatorFactory> parseStrings(final String... s) {
-    return Mutator.fromStrings(Arrays.asList(s));
+    return Mutator.fromStrings(asList(s));
   }
 
   @Test
@@ -54,4 +56,14 @@ public class MutatorTest {
     assertThat(Mutator.all()).contains(
         ArgumentPropagationMutator.ARGUMENT_PROPAGATION_MUTATOR);
   }
+
+  @Test
+  public void allShouldHaveTheSameContentNoMatterTheWayToGetIt() {
+    assertThat(Mutator.all())
+        .hasSameElementsAs(Mutator.byName("ALL"));
+
+    assertThat(Mutator.all())
+        .hasSameElementsAs(Mutator.fromStrings(singletonList("ALL")));
+  }
+
 }

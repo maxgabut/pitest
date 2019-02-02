@@ -15,7 +15,6 @@
 package org.pitest.mutationtest.engine.gregor.config;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -80,6 +79,8 @@ import org.pitest.mutationtest.engine.gregor.mutators.rv.UOI1Mutator;
 import org.pitest.mutationtest.engine.gregor.mutators.rv.UOI2Mutator;
 import org.pitest.mutationtest.engine.gregor.mutators.rv.UOI3Mutator;
 import org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator;
+
+import static java.util.Arrays.asList;
 
 public final class Mutator {
 
@@ -246,7 +247,7 @@ public final class Mutator {
      * mutators that replace a binary arithmetic operations with one of its members.
      */
     add("AOD1", AOD1Mutator.AOD_1_MUTATOR);
-    add("AOD1", AOD2Mutator.AOD_2_MUTATOR);
+    add("AOD2", AOD2Mutator.AOD_2_MUTATOR);
 
 
     /**
@@ -380,7 +381,7 @@ public final class Mutator {
 
   private static Collection<MethodMutatorFactory> group(
       final MethodMutatorFactory... ms) {
-    return Arrays.asList(ms);
+    return asList(ms);
   }
 
   public static Collection<MethodMutatorFactory> byName(final String name) {
