@@ -318,7 +318,7 @@ public final class Mutator {
   /**
    * Proposed new defaults - replaced the RETURN_VALS mutator with the new more stable set
    */
-  public static Collection<MethodMutatorFactory> newDefaults() {
+  private static Collection<MethodMutatorFactory> newDefaults() {
     return combine(group(InvertNegsMutator.INVERT_NEGS_MUTATOR,
         MathMutator.MATH_MUTATOR,
         VoidMethodCallsMutator.VOID_METHOD_CALLS_MUTATOR,
@@ -328,7 +328,7 @@ public final class Mutator {
   }
 
 
-  public static Collection<MethodMutatorFactory> returns() {
+  private static Collection<MethodMutatorFactory> returns() {
     return group(TrueReturnsMutator.TRUE_RETURNS_MUTATOR,
         FalseReturnsMutator.FALSE_RETURNS_MUTATOR,
         PrimitiveReturnsMutator.PRIMITIVE_RETURNS_MUTATOR,
@@ -336,19 +336,19 @@ public final class Mutator {
         NullReturnsMutator.NULL_RETURNS_MUTATOR);
   }
 
-  public static Collection<MethodMutatorFactory> aor() {
+  private static Collection<MethodMutatorFactory> aor() {
     return group(AOR1Mutator.AOR_1_MUTATOR,
             AOR2Mutator.AOR_2_MUTATOR,
             AOR3Mutator.AOR_3_MUTATOR,
             AOR4Mutator.AOR_4_MUTATOR);
   }
 
-  public static Collection<MethodMutatorFactory> aod() {
+  private static Collection<MethodMutatorFactory> aod() {
     return group(AOD1Mutator.AOD_1_MUTATOR,
             AOD2Mutator.AOD_2_MUTATOR);
   }
 
-  public static Collection<MethodMutatorFactory> crcr() {
+  private static Collection<MethodMutatorFactory> crcr() {
     return group(CRCR1Mutator.CRCR_1_MUTATOR,
             CRCR2Mutator.CRCR_2_MUTATOR,
             CRCR3Mutator.CRCR_3_MUTATOR,
@@ -357,13 +357,13 @@ public final class Mutator {
             CRCR6Mutator.CRCR_6_MUTATOR);
   }
 
-  public static Collection<MethodMutatorFactory> obbn() {
+  private static Collection<MethodMutatorFactory> obbn() {
     return group(OBBN1Mutator.OBBN_1_MUTATOR,
             OBBN2Mutator.OBBN_2_MUTATOR,
             OBBN3Mutator.OBBN_3_MUTATOR);
   }
 
-  public static Collection<MethodMutatorFactory> ror() {
+  private static Collection<MethodMutatorFactory> ror() {
     return group(ROR1Mutator.ROR_1_MUTATOR,
             ROR2Mutator.ROR_2_MUTATOR,
             ROR3Mutator.ROR_3_MUTATOR,
@@ -371,7 +371,7 @@ public final class Mutator {
             ROR5Mutator.ROR_5_MUTATOR);
   }
 
-  public static Collection<MethodMutatorFactory> uoi() {
+  private static Collection<MethodMutatorFactory> uoi() {
     return group(UOI1Mutator.UOI_1_MUTATOR,
             UOI2Mutator.UOI_2_MUTATOR,
             UOI3Mutator.UOI_3_MUTATOR,
