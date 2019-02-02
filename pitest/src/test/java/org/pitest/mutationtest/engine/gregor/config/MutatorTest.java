@@ -67,6 +67,15 @@ public class MutatorTest {
   }
 
   @Test
+  public void defaultsShouldHaveTheSameContentNoMatterTheWayToGetIt() {
+    assertThat(Mutator.defaults())
+        .hasSameElementsAs(Mutator.byName("DEFAULTS"));
+
+    assertThat(Mutator.defaults())
+        .hasSameElementsAs(Mutator.fromStrings(singletonList("DEFAULTS")));
+  }
+
+  @Test
   public void allShouldContainTheRightMutators() {
     assertThat(Mutator.all())
         .extracting(MethodMutatorFactory::getGloballyUniqueId)
