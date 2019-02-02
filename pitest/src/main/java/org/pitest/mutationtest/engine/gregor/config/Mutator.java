@@ -26,7 +26,6 @@ import java.util.TreeSet;
 import java.util.function.Function;
 
 import org.pitest.functional.FCollection;
-import org.pitest.functional.prelude.Prelude;
 import org.pitest.help.Help;
 import org.pitest.help.PitHelpError;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
@@ -382,11 +381,6 @@ public final class Mutator {
   private static Collection<MethodMutatorFactory> group(
       final MethodMutatorFactory... ms) {
     return asList(ms);
-  }
-
-  public static Collection<MethodMutatorFactory> byName(final String name) {
-    return FCollection.map(MUTATORS.get(name),
-        Prelude.id(MethodMutatorFactory.class));
   }
 
   private static void add(final String key, final MethodMutatorFactory value) {

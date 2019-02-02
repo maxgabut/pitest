@@ -125,7 +125,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldNotMutateAssertStatments() {
-    createTesteeWith(Mutator.byName("NEGATE_CONDITIONALS"));
+    createTesteeWith(Mutator.fromStrings("NEGATE_CONDITIONALS"));
     final Collection<MutationDetails> actualDetails = findMutationsFor(HasAssertStatement.class);
     assertEquals(0, actualDetails.size());
   }
@@ -143,7 +143,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldMutateOtherStatementsWhenAssertIsPresent() {
-    createTesteeWith(Mutator.byName("NEGATE_CONDITIONALS"));
+    createTesteeWith(Mutator.fromStrings("NEGATE_CONDITIONALS"));
     final Collection<MutationDetails> actualDetails = findMutationsFor(HasAssertStatementAndOtherStatements.class);
     assertEquals(1, actualDetails.size());
   }
@@ -173,7 +173,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldRecordMutationsAsInSameBlockWhenForAStraightThroughMethod() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(OneStraightThroughMethod.class);
     assertEquals(2, actualDetails.size());
     final int firstMutationBlock = actualDetails.get(0).getBlock();
@@ -192,7 +192,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldRecordMutationsAsInDifferentBlocksWhenInDifferentBranchesOfIfStatement() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(SimpleBranch.class);
     assertTwoMutationsInDifferentBlocks(actualDetails);
   }
@@ -209,7 +209,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldRecordMutationsAsInDifferentBlocksWhenInDifferentMethods() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(TwoMethods.class);
     assertTwoMutationsInDifferentBlocks(actualDetails);
   }
@@ -232,7 +232,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldRecordMutationsAsInDifferentBlocksWhenInDifferentBranchesOfSwitchStatement() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(SwitchStatement.class);
     assertEquals(3, actualDetails.size());
     final int firstMutationBlock = actualDetails.get(0).getBlock();
@@ -253,7 +253,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldRecordMutationsAsInSameBlockWhenSwitchStatementFallsThrough() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(FallThroughSwitch.class);
     assertEquals(2, actualDetails.size());
     final int firstMutationBlock = actualDetails.get(0).getBlock();
@@ -272,14 +272,14 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldRecordMutationsAsInDifferentBlocksWhenInExceptionHandler() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(HasExceptionBlock.class);
     assertTwoMutationsInDifferentBlocks(actualDetails);
   }
 
   @Test
   public void shouldNotRecordMutationsAsInFinallyBlockWhenTheyAreNot() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(HasExceptionBlock.class);
     assertFalse(actualDetails.get(0).isInFinallyBlock());
     assertFalse(actualDetails.get(1).isInFinallyBlock());
@@ -297,7 +297,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldMarkMutationsWithinFinallyBlocks() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(HasFinallyBlock.class);
     assertEquals(1, FCollection.filter(actualDetails, isInFinallyBlock())
         .size());
@@ -317,7 +317,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldMarkMutationsWithinFinallyBlocksWhenExceptionHandlerAlsoPresent() {
-    createTesteeWith(Mutator.byName("INCREMENTS"));
+    createTesteeWith(Mutator.fromStrings("INCREMENTS"));
     final List<MutationDetails> actualDetails = findMutationsFor(HasFinallyBlockAndExceptionHandler.class);
     assertEquals(1, FCollection.filter(actualDetails, isInFinallyBlock())
         .size());
@@ -338,7 +338,7 @@ public class TestGregorMutater extends MutatorTestBase {
 
   @Test
   public void shouldScopeMutationIndexesByInstructionCounter() {
-    createTesteeWith(Mutator.byName("RETURN_VALS"));
+    createTesteeWith(Mutator.fromStrings("RETURN_VALS"));
     final List<MutationDetails> actualDetails = findMutationsFor(HasTwoMutableMethods.class);
     assertEquals(2, actualDetails.size());
     assertEquals(4, actualDetails.get(0).getId().getFirstIndex());
@@ -350,7 +350,7 @@ public class TestGregorMutater extends MutatorTestBase {
   @Test
   public void shouldNotMutateCompilerGeneratedConditionalsInStringSwitch() {
     createTesteeWith(new ResourceFolderByteArraySource(),
-        i -> true, Mutator.byName("REMOVE_CONDITIONALS"));
+        i -> true, Mutator.fromStrings("REMOVE_CONDITIONALS"));
     final Collection<MutationDetails> actualDetails = findMutationsFor("Java7SwitchOnString");
     assertThat(actualDetails).isEmpty();
   }

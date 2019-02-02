@@ -25,7 +25,7 @@ public class EqualsPerformanceShortcutFilterTest {
   EqualsPerformanceShortcutFilter testee = new EqualsPerformanceShortcutFilter();
 
   final GregorMutater mutator = createMutator(
-      Mutator.byName("REMOVE_CONDITIONALS"));
+      Mutator.fromStrings("REMOVE_CONDITIONALS"));
 
   @Test
   public void shouldDeclareTypeAsFilter() {
