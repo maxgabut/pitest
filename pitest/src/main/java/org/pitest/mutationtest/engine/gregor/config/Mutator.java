@@ -421,4 +421,7 @@ public final class Mutator {
     };
   }
 
+  static Iterable<String> allKeys() {
+    return MUTATORS.keySet();
+  }
 }

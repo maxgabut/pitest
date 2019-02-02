@@ -18,7 +18,6 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Test;
@@ -73,6 +72,15 @@ public class MutatorTest {
 
     assertThat(Mutator.defaults())
         .hasSameElementsAs(Mutator.fromStrings(singletonList("DEFAULTS")));
+  }
+
+  @Test
+  public void everyGroupOrMutatorShouldBeTheSameNotMatterTheWayToGetIt() {
+    for (String key : Mutator.allKeys()) {
+      assertThat(Mutator.byName(key))
+          .describedAs("All access to " + key + " should be equivalent")
+          .hasSameElementsAs(Mutator.fromStrings(singletonList(key)));
+    }
   }
 
   @Test
