@@ -63,6 +63,9 @@ public class MutatorTest {
 
     assertThat(Mutator.all())
         .hasSameElementsAs(Mutator.fromStrings(singletonList("ALL")));
+
+    assertThat(Mutator.all())
+        .hasSameElementsAs(Mutator.fromStrings("ALL"));
   }
 
   @Test
@@ -72,12 +75,19 @@ public class MutatorTest {
 
     assertThat(Mutator.defaults())
         .hasSameElementsAs(Mutator.fromStrings(singletonList("DEFAULTS")));
+
+    assertThat(Mutator.defaults())
+        .hasSameElementsAs(Mutator.fromStrings("DEFAULTS"));
   }
 
   @Test
   public void everyGroupOrMutatorShouldBeTheSameNotMatterTheWayToGetIt() {
     for (String key : Mutator.allKeys()) {
       assertThat(Mutator.byName(key))
+          .describedAs("All access to " + key + " should be equivalent")
+          .hasSameElementsAs(Mutator.fromStrings(singletonList(key)));
+
+      assertThat(Mutator.fromStrings(key))
           .describedAs("All access to " + key + " should be equivalent")
           .hasSameElementsAs(Mutator.fromStrings(singletonList(key)));
     }

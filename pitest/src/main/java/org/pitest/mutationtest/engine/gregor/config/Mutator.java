@@ -398,6 +398,10 @@ public final class Mutator {
     MUTATORS.put(key, value);
   }
 
+  public static Collection<MethodMutatorFactory> fromStrings(String ...names) {
+    return fromStrings(asList(names));
+  }
+
   public static Collection<MethodMutatorFactory> fromStrings(
       final Collection<String> names) {
     final Set<MethodMutatorFactory> unique = new TreeSet<>(
