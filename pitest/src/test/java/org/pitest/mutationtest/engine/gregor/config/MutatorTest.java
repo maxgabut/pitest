@@ -64,10 +64,7 @@ public class MutatorTest {
 
   @Test
   public void defaultsShouldHaveTheSameContentNoMatterTheWayToGetIt() {
-    assertThat(Mutator.defaults())
-        .hasSameElementsAs(Mutator.fromStrings(singletonList("DEFAULTS")));
-
-    assertThat(Mutator.defaults())
+    assertThat(Mutator.fromStrings("DEFAULTS"))
         .hasSameElementsAs(Mutator.fromStrings("DEFAULTS"));
   }
 
@@ -240,7 +237,7 @@ public class MutatorTest {
 
   @Test
   public void defaultsShouldContainTheRightMutators() {
-    assertThat(Mutator.defaults())
+    assertThat(Mutator.fromStrings("DEFAULTS"))
         .extracting(MethodMutatorFactory::getGloballyUniqueId)
         .containsExactly(
             "org.pitest.mutationtest.engine.gregor.mutators.InvertNegsMutator",

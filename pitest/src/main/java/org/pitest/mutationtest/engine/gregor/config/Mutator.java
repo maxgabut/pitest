@@ -285,8 +285,7 @@ public final class Mutator {
   }
 
   private static Collection<MethodMutatorFactory> stronger() {
-    return combine(
-        defaults(),
+    return combine(fromStrings("DEFAULTS"),
         group(new RemoveConditionalsMutator(Choice.EQUAL, false),
             new SwitchMutator()));
   }
@@ -302,7 +301,7 @@ public final class Mutator {
    * Default set of mutators - designed to provide balance between strength and
    * performance
    */
-  public static Collection<MethodMutatorFactory> defaults() {
+  private static Collection<MethodMutatorFactory> defaults() {
     return group(InvertNegsMutator.INVERT_NEGS_MUTATOR,
         ReturnValsMutator.RETURN_VALS_MUTATOR, MathMutator.MATH_MUTATOR,
         VoidMethodCallsMutator.VOID_METHOD_CALLS_MUTATOR,
