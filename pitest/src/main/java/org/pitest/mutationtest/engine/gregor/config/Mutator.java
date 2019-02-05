@@ -166,15 +166,15 @@ public final class Mutator {
      * ORDER version mutates only those.
      */
 
-    add("REMOVE_CONDITIONALS_EQ_IF", new RemoveConditionalsMutator(Choice.EQUAL,
-        true));
-    add("REMOVE_CONDITIONALS_EQ_ELSE", new RemoveConditionalsMutator(
-        Choice.EQUAL, false));
-    add("REMOVE_CONDITIONALS_ORD_IF", new RemoveConditionalsMutator(
-        Choice.ORDER, true));
-    add("REMOVE_CONDITIONALS_ORD_ELSE", new RemoveConditionalsMutator(
-        Choice.ORDER, false));
-    addGroup("REMOVE_CONDITIONALS", RemoveConditionalsMutator.makeMutators());
+    buildGroup("REMOVE_CONDITIONALS")
+        .withMutator("REMOVE_CONDITIONALS_EQ_IF",
+            new RemoveConditionalsMutator(Choice.EQUAL, true))
+        .withMutator("REMOVE_CONDITIONALS_EQ_ELSE",
+            new RemoveConditionalsMutator(Choice.EQUAL, false))
+        .withMutator("REMOVE_CONDITIONALS_ORD_IF",
+            new RemoveConditionalsMutator(Choice.ORDER, true))
+        .withMutator("REMOVE_CONDITIONALS_ORD_ELSE",
+            new RemoveConditionalsMutator(Choice.ORDER, false));
 
     add("TRUE_RETURNS", TrueReturnsMutator.TRUE_RETURNS_MUTATOR);
     add("FALSE_RETURNS", FalseReturnsMutator.FALSE_RETURNS_MUTATOR);

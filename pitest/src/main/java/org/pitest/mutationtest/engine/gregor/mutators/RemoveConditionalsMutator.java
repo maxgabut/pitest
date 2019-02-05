@@ -1,8 +1,5 @@
 package org.pitest.mutationtest.engine.gregor.mutators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -37,18 +34,6 @@ public class RemoveConditionalsMutator implements MethodMutatorFactory {
   public RemoveConditionalsMutator(final Choice c, final boolean rc) {
     this.kind = c;
     this.replaceWith = rc;
-  }
-
-  public static Iterable<MethodMutatorFactory> makeMutators() {
-    final List<MethodMutatorFactory> variations = new ArrayList<>();
-    final Choice[] allChoices = { Choice.EQUAL, Choice.ORDER };
-    final boolean[] arrWith = { true, false };
-    for (final Choice c : allChoices) {
-      for (final boolean b : arrWith) {
-        variations.add(new RemoveConditionalsMutator(c, b));
-      }
-    }
-    return variations;
   }
 
   @Override
