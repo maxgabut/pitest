@@ -176,12 +176,17 @@ public final class Mutator {
         .withMutator("REMOVE_CONDITIONALS_ORD_ELSE",
             new RemoveConditionalsMutator(Choice.ORDER, false));
 
-    add("TRUE_RETURNS", TrueReturnsMutator.TRUE_RETURNS_MUTATOR);
-    add("FALSE_RETURNS", FalseReturnsMutator.FALSE_RETURNS_MUTATOR);
-    add("PRIMITIVE_RETURNS", PrimitiveReturnsMutator.PRIMITIVE_RETURNS_MUTATOR);
-    add("EMPTY_RETURNS", EmptyReturnsMutator.EMPTY_RETURNS_MUTATOR);
-    add("NULL_RETURNS", NullReturnsMutator.NULL_RETURNS_MUTATOR);
-    addGroup("RETURNS", returns());
+    buildGroup("RETURNS")
+        .withMutator("TRUE_RETURNS",
+            TrueReturnsMutator.TRUE_RETURNS_MUTATOR)
+        .withMutator("FALSE_RETURNS",
+            FalseReturnsMutator.FALSE_RETURNS_MUTATOR)
+        .withMutator("PRIMITIVE_RETURNS",
+            PrimitiveReturnsMutator.PRIMITIVE_RETURNS_MUTATOR)
+        .withMutator("EMPTY_RETURNS",
+            EmptyReturnsMutator.EMPTY_RETURNS_MUTATOR)
+        .withMutator("NULL_RETURNS",
+            NullReturnsMutator.NULL_RETURNS_MUTATOR);
 
     experimentalMutators();
     
@@ -314,16 +319,8 @@ public final class Mutator {
         VoidMethodCallsMutator.VOID_METHOD_CALLS_MUTATOR,
         NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR,
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
-        IncrementsMutator.INCREMENTS_MUTATOR), returns());
-  }
-
-
-  private static Collection<MethodMutatorFactory> returns() {
-    return group(TrueReturnsMutator.TRUE_RETURNS_MUTATOR,
-        FalseReturnsMutator.FALSE_RETURNS_MUTATOR,
-        PrimitiveReturnsMutator.PRIMITIVE_RETURNS_MUTATOR,
-        EmptyReturnsMutator.EMPTY_RETURNS_MUTATOR,
-        NullReturnsMutator.NULL_RETURNS_MUTATOR);
+        IncrementsMutator.INCREMENTS_MUTATOR),
+        fromStrings("RETURNS"));
   }
 
   private static Collection<MethodMutatorFactory> aor() {
