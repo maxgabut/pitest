@@ -80,6 +80,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.rv.UOI3Mutator;
 import org.pitest.mutationtest.engine.gregor.mutators.rv.UOI4Mutator;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 public final class Mutator {
 
@@ -87,52 +88,60 @@ public final class Mutator {
 
   static {
 
-    /**
-     * Default mutator that inverts the negation of integer and floating point
-     * numbers.
+    /*
+     * Default set of groupMutators - designed to provide balance between strength and
+     * performance
      */
-    add("INVERT_NEGS", InvertNegsMutator.INVERT_NEGS_MUTATOR);
+    buildGroup("DEFAULTS")
+        /*
+         * Default mutator that inverts the negation of integer and floating point
+         * numbers.
+         */
+        .withMutator("INVERT_NEGS",
+            InvertNegsMutator.INVERT_NEGS_MUTATOR)
 
-    /**
-     * Default mutator that mutates the return values of methods.
-     */
-    add("RETURN_VALS", ReturnValsMutator.RETURN_VALS_MUTATOR);
+        /*
+         * Default mutator that mutates the return values of methods.
+         */
+        .withMutator("RETURN_VALS",
+            ReturnValsMutator.RETURN_VALS_MUTATOR)
+
+        /*
+         * Default mutator that mutates binary arithmetic operations.
+         */
+        .withMutator("MATH", MathMutator.MATH_MUTATOR)
+
+        /*
+         * Default mutator that removes method calls to void methods.
+         */
+        .withMutator("VOID_METHOD_CALLS",
+            VoidMethodCallsMutator.VOID_METHOD_CALLS_MUTATOR)
+
+        /*
+         * Default mutator that negates conditionals.
+         */
+        .withMutator("NEGATE_CONDITIONALS",
+            NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR)
+
+        /*
+         * Default mutator that replaces the relational operators with their
+         * boundary counterpart.
+         */
+        .withMutator("CONDITIONALS_BOUNDARY",
+            ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR)
+
+        /*
+         * Default mutator that mutates increments, decrements and assignment
+         * increments and decrements of local variables.
+         */
+        .withMutator("INCREMENTS",
+            IncrementsMutator.INCREMENTS_MUTATOR);
 
     /**
      * Optional mutator that mutates integer and floating point inline
      * constants.
      */
     add("INLINE_CONSTS", new InlineConstsMutator());
-
-    /**
-     * Default mutator that mutates binary arithmetic operations.
-     */
-    add("MATH", MathMutator.MATH_MUTATOR);
-
-    /**
-     * Default mutator that removes method calls to void methods.
-     *
-     */
-    add("VOID_METHOD_CALLS", VoidMethodCallsMutator.VOID_METHOD_CALLS_MUTATOR);
-
-    /**
-     * Default mutator that negates conditionals.
-     */
-    add("NEGATE_CONDITIONALS",
-        NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR);
-
-    /**
-     * Default mutator that replaces the relational operators with their
-     * boundary counterpart.
-     */
-    add("CONDITIONALS_BOUNDARY",
-        ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR);
-
-    /**
-     * Default mutator that mutates increments, decrements and assignment
-     * increments and decrements of local variables.
-     */
-    add("INCREMENTS", IncrementsMutator.INCREMENTS_MUTATOR);
 
     /**
      * Optional mutator that removes local variable increments.
@@ -179,7 +188,6 @@ public final class Mutator {
     researchMutators();
 
     addGroup("REMOVE_SWITCH", RemoveSwitchMutator.makeMutators());
-    addGroup("DEFAULTS", defaults());
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
     addGroup("AOR", aor());
@@ -298,19 +306,6 @@ public final class Mutator {
   }
 
   /**
-   * Default set of mutators - designed to provide balance between strength and
-   * performance
-   */
-  private static Collection<MethodMutatorFactory> defaults() {
-    return group(InvertNegsMutator.INVERT_NEGS_MUTATOR,
-        ReturnValsMutator.RETURN_VALS_MUTATOR, MathMutator.MATH_MUTATOR,
-        VoidMethodCallsMutator.VOID_METHOD_CALLS_MUTATOR,
-        NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR,
-        ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
-        IncrementsMutator.INCREMENTS_MUTATOR);
-  }
-
-  /**
    * Proposed new defaults - replaced the RETURN_VALS mutator with the new more stable set
    */
   private static Collection<MethodMutatorFactory> newDefaults() {
@@ -416,5 +411,27 @@ public final class Mutator {
 
   static Iterable<String> allKeys() {
     return MUTATORS.keySet();
+  }
+
+  private static GroupBuilder buildGroup(String groupKey) {
+    return new GroupBuilder(groupKey);
+  }
+
+  private static final class GroupBuilder {
+    private final List<MethodMutatorFactory> groupMutators;
+
+    private GroupBuilder(String groupKey) {
+      this.groupMutators = new ArrayList<>();
+      MUTATORS.put(groupKey, groupMutators);
+    }
+
+    private GroupBuilder withMutator(
+        String mutatorKey, MethodMutatorFactory mutator) {
+
+      groupMutators.add(mutator);
+      MUTATORS.put(mutatorKey, singletonList(mutator));
+
+      return this;
+    }
   }
 }
