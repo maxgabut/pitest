@@ -192,7 +192,9 @@ public final class Mutator {
     
     researchMutators();
 
-    addGroup("REMOVE_SWITCH", RemoveSwitchMutator.makeMutators());
+    buildGroup("REMOVE_SWITCH")
+        .withMutators(RemoveSwitchMutator.makeMutators());
+
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
     addGroup("AOR", aor());
@@ -428,6 +430,11 @@ public final class Mutator {
       groupMutators.add(mutator);
       MUTATORS.put(mutatorKey, singletonList(mutator));
 
+      return this;
+    }
+
+    private GroupBuilder withMutators(Iterable<MethodMutatorFactory> mutators) {
+      mutators.forEach(groupMutators::add);
       return this;
     }
   }
