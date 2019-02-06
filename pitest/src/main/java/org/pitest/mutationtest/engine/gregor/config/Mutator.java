@@ -197,7 +197,7 @@ public final class Mutator {
 
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
-    addGroup("AOR", aor());
+
     addGroup("AOD", aod());
     addGroup("CRCR", crcr());
     addGroup("OBBN", obbn());
@@ -244,13 +244,14 @@ public final class Mutator {
    * https://researchrepository.ucd.ie/bitstream/10197/7748/4/ISSTA_2016_Demo_Camera_ready.pdf
    */
   private static void researchMutators() {
-    /**
+    /*
      * mutators that mutate binary arithmetic operations.
      */
-    add("AOR_1", AOR1Mutator.AOR_1_MUTATOR);
-    add("AOR_2", AOR2Mutator.AOR_2_MUTATOR);
-    add("AOR_3", AOR3Mutator.AOR_3_MUTATOR);
-    add("AOR_4", AOR4Mutator.AOR_4_MUTATOR);
+    buildGroup("AOR")
+            .withMutator("AOR_1", AOR1Mutator.AOR_1_MUTATOR)
+            .withMutator("AOR_2", AOR2Mutator.AOR_2_MUTATOR)
+            .withMutator("AOR_3", AOR3Mutator.AOR_3_MUTATOR)
+            .withMutator("AOR_4", AOR4Mutator.AOR_4_MUTATOR);
 
     /**
      * mutator that replaces a variable with its negation.
@@ -323,13 +324,6 @@ public final class Mutator {
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR),
         fromStrings("RETURNS"));
-  }
-
-  private static Collection<MethodMutatorFactory> aor() {
-    return group(AOR1Mutator.AOR_1_MUTATOR,
-            AOR2Mutator.AOR_2_MUTATOR,
-            AOR3Mutator.AOR_3_MUTATOR,
-            AOR4Mutator.AOR_4_MUTATOR);
   }
 
   private static Collection<MethodMutatorFactory> aod() {
