@@ -198,8 +198,6 @@ public final class Mutator {
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
 
-    addGroup("UOI", uoi());
-
     addGroup("ALL", fromStrings(MUTATORS.keySet()));
   }
   
@@ -290,13 +288,14 @@ public final class Mutator {
             .withMutator("ROR4", ROR4Mutator.ROR_4_MUTATOR)
             .withMutator("ROR5", ROR5Mutator.ROR_5_MUTATOR);
 
-    /**
+    /*
      * mutators that insert increments.
      */
-    add("UOI1", UOI1Mutator.UOI_1_MUTATOR);
-    add("UOI2", UOI2Mutator.UOI_2_MUTATOR);
-    add("UOI3", UOI3Mutator.UOI_3_MUTATOR);
-    add("UOI4", UOI4Mutator.UOI_4_MUTATOR);
+    buildGroup("UOI")
+            .withMutator("UOI1", UOI1Mutator.UOI_1_MUTATOR)
+            .withMutator("UOI2", UOI2Mutator.UOI_2_MUTATOR)
+            .withMutator("UOI3", UOI3Mutator.UOI_3_MUTATOR)
+            .withMutator("UOI4", UOI4Mutator.UOI_4_MUTATOR);
   }
 
   private static Collection<MethodMutatorFactory> stronger() {
@@ -323,13 +322,6 @@ public final class Mutator {
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR),
         fromStrings("RETURNS"));
-  }
-
-  private static Collection<MethodMutatorFactory> uoi() {
-    return group(UOI1Mutator.UOI_1_MUTATOR,
-            UOI2Mutator.UOI_2_MUTATOR,
-            UOI3Mutator.UOI_3_MUTATOR,
-            UOI4Mutator.UOI_4_MUTATOR);
   }
 
   private static Collection<MethodMutatorFactory> group(
