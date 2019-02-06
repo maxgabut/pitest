@@ -211,7 +211,8 @@ public final class Mutator {
             .withoutContentOf("RETURN_VALS")
             .withContentOf("RETURNS");
 
-    addGroup("ALL", fromStrings(MUTATORS.keySet()));
+    buildGroup("ALL")
+            .withMutators(fromStrings(MUTATORS.keySet()));
   }
   
   /**
