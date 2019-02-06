@@ -203,7 +203,13 @@ public final class Mutator {
              */
             .withMutator("EXPERIMENTAL_SWITCH", new SwitchMutator());
 
-    addGroup("NEW_DEFAULTS", newDefaults());
+    /*
+     * Proposed new defaults - replaced the RETURN_VALS mutator with the new more stable set
+     */
+    buildGroup("NEW_DEFAULTS")
+            .withContentOf("DEFAULTS")
+            .withoutContentOf("RETURN_VALS")
+            .withContentOf("RETURNS");
 
     addGroup("ALL", fromStrings(MUTATORS.keySet()));
   }
@@ -307,19 +313,6 @@ public final class Mutator {
     return l;
   }
 
-  /**
-   * Proposed new defaults - replaced the RETURN_VALS mutator with the new more stable set
-   */
-  private static Collection<MethodMutatorFactory> newDefaults() {
-    return combine(group(InvertNegsMutator.INVERT_NEGS_MUTATOR,
-        MathMutator.MATH_MUTATOR,
-        VoidMethodCallsMutator.VOID_METHOD_CALLS_MUTATOR,
-        NegateConditionalsMutator.NEGATE_CONDITIONALS_MUTATOR,
-        ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
-        IncrementsMutator.INCREMENTS_MUTATOR),
-        fromStrings("RETURNS"));
-  }
-
   private static Collection<MethodMutatorFactory> group(
       final MethodMutatorFactory... ms) {
     return asList(ms);
@@ -393,6 +386,11 @@ public final class Mutator {
 
     private GroupBuilder withContentOf(String copiedGroupId) {
       groupMutators.addAll(fromStrings(copiedGroupId));
+      return this;
+    }
+
+    private GroupBuilder withoutContentOf(String removedGrouId) {
+      fromStrings(removedGrouId).forEach(groupMutators::remove);
       return this;
     }
   }
