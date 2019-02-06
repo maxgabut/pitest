@@ -198,7 +198,6 @@ public final class Mutator {
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
 
-    addGroup("AOD", aod());
     addGroup("CRCR", crcr());
     addGroup("OBBN", obbn());
     addGroup("ROR", ror());
@@ -258,12 +257,12 @@ public final class Mutator {
      */
     add("ABS", ABSMutator.ABS_MUTATOR);
 
-    /**
+    /*
      * mutators that replace a binary arithmetic operations with one of its members.
      */
-    add("AOD1", AOD1Mutator.AOD_1_MUTATOR);
-    add("AOD2", AOD2Mutator.AOD_2_MUTATOR);
-
+    buildGroup("AOD")
+            .withMutator("AOD1", AOD1Mutator.AOD_1_MUTATOR)
+            .withMutator("AOD2", AOD2Mutator.AOD_2_MUTATOR);
 
     /**
      * mutators that replace an inline constant a with 0, 1, -1, a+1 or a-1 .
@@ -324,11 +323,6 @@ public final class Mutator {
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR),
         fromStrings("RETURNS"));
-  }
-
-  private static Collection<MethodMutatorFactory> aod() {
-    return group(AOD1Mutator.AOD_1_MUTATOR,
-            AOD2Mutator.AOD_2_MUTATOR);
   }
 
   private static Collection<MethodMutatorFactory> crcr() {
