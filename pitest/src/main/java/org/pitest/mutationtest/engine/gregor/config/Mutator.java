@@ -198,7 +198,6 @@ public final class Mutator {
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
 
-    addGroup("ROR", ror());
     addGroup("UOI", uoi());
 
     addGroup("ALL", fromStrings(MUTATORS.keySet()));
@@ -281,14 +280,15 @@ public final class Mutator {
             .withMutator("OBBN2", OBBN2Mutator.OBBN_2_MUTATOR)
             .withMutator("OBBN3", OBBN3Mutator.OBBN_3_MUTATOR);
 
-    /**
+    /*
      * mutators that replace conditional operators.
      */
-    add("ROR1", ROR1Mutator.ROR_1_MUTATOR);
-    add("ROR2", ROR2Mutator.ROR_2_MUTATOR);
-    add("ROR3", ROR3Mutator.ROR_3_MUTATOR);
-    add("ROR4", ROR4Mutator.ROR_4_MUTATOR);
-    add("ROR5", ROR5Mutator.ROR_5_MUTATOR);
+    buildGroup("ROR")
+            .withMutator("ROR1", ROR1Mutator.ROR_1_MUTATOR)
+            .withMutator("ROR2", ROR2Mutator.ROR_2_MUTATOR)
+            .withMutator("ROR3", ROR3Mutator.ROR_3_MUTATOR)
+            .withMutator("ROR4", ROR4Mutator.ROR_4_MUTATOR)
+            .withMutator("ROR5", ROR5Mutator.ROR_5_MUTATOR);
 
     /**
      * mutators that insert increments.
@@ -323,14 +323,6 @@ public final class Mutator {
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR),
         fromStrings("RETURNS"));
-  }
-
-  private static Collection<MethodMutatorFactory> ror() {
-    return group(ROR1Mutator.ROR_1_MUTATOR,
-            ROR2Mutator.ROR_2_MUTATOR,
-            ROR3Mutator.ROR_3_MUTATOR,
-            ROR4Mutator.ROR_4_MUTATOR,
-            ROR5Mutator.ROR_5_MUTATOR);
   }
 
   private static Collection<MethodMutatorFactory> uoi() {
