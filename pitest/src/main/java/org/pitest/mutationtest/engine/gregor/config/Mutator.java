@@ -198,7 +198,6 @@ public final class Mutator {
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
 
-    addGroup("OBBN", obbn());
     addGroup("ROR", ror());
     addGroup("UOI", uoi());
 
@@ -274,12 +273,13 @@ public final class Mutator {
             .withMutator("CRCR5", CRCR5Mutator.CRCR_5_MUTATOR)
             .withMutator("CRCR6", CRCR6Mutator.CRCR_6_MUTATOR);
 
-    /**
+    /*
      * mutators that replace an bitwise ands and ors.
      */
-    add("OBBN1", OBBN1Mutator.OBBN_1_MUTATOR);
-    add("OBBN2", OBBN2Mutator.OBBN_2_MUTATOR);
-    add("OBBN3", OBBN3Mutator.OBBN_3_MUTATOR);
+    buildGroup("OBBN")
+            .withMutator("OBBN1", OBBN1Mutator.OBBN_1_MUTATOR)
+            .withMutator("OBBN2", OBBN2Mutator.OBBN_2_MUTATOR)
+            .withMutator("OBBN3", OBBN3Mutator.OBBN_3_MUTATOR);
 
     /**
      * mutators that replace conditional operators.
@@ -323,12 +323,6 @@ public final class Mutator {
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR),
         fromStrings("RETURNS"));
-  }
-
-  private static Collection<MethodMutatorFactory> obbn() {
-    return group(OBBN1Mutator.OBBN_1_MUTATOR,
-            OBBN2Mutator.OBBN_2_MUTATOR,
-            OBBN3Mutator.OBBN_3_MUTATOR);
   }
 
   private static Collection<MethodMutatorFactory> ror() {
