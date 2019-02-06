@@ -198,7 +198,6 @@ public final class Mutator {
     addGroup("STRONGER", stronger());
     addGroup("NEW_DEFAULTS", newDefaults());
 
-    addGroup("CRCR", crcr());
     addGroup("OBBN", obbn());
     addGroup("ROR", ror());
     addGroup("UOI", uoi());
@@ -264,15 +263,16 @@ public final class Mutator {
             .withMutator("AOD1", AOD1Mutator.AOD_1_MUTATOR)
             .withMutator("AOD2", AOD2Mutator.AOD_2_MUTATOR);
 
-    /**
+    /*
      * mutators that replace an inline constant a with 0, 1, -1, a+1 or a-1 .
      */
-    add("CRCR1", CRCR1Mutator.CRCR_1_MUTATOR);
-    add("CRCR2", CRCR2Mutator.CRCR_2_MUTATOR);
-    add("CRCR3", CRCR3Mutator.CRCR_3_MUTATOR);
-    add("CRCR4", CRCR4Mutator.CRCR_4_MUTATOR);
-    add("CRCR5", CRCR5Mutator.CRCR_5_MUTATOR);
-    add("CRCR6", CRCR6Mutator.CRCR_6_MUTATOR);
+    buildGroup("CRCR")
+            .withMutator("CRCR1", CRCR1Mutator.CRCR_1_MUTATOR)
+            .withMutator("CRCR2", CRCR2Mutator.CRCR_2_MUTATOR)
+            .withMutator("CRCR3", CRCR3Mutator.CRCR_3_MUTATOR)
+            .withMutator("CRCR4", CRCR4Mutator.CRCR_4_MUTATOR)
+            .withMutator("CRCR5", CRCR5Mutator.CRCR_5_MUTATOR)
+            .withMutator("CRCR6", CRCR6Mutator.CRCR_6_MUTATOR);
 
     /**
      * mutators that replace an bitwise ands and ors.
@@ -323,15 +323,6 @@ public final class Mutator {
         ConditionalsBoundaryMutator.CONDITIONALS_BOUNDARY_MUTATOR,
         IncrementsMutator.INCREMENTS_MUTATOR),
         fromStrings("RETURNS"));
-  }
-
-  private static Collection<MethodMutatorFactory> crcr() {
-    return group(CRCR1Mutator.CRCR_1_MUTATOR,
-            CRCR2Mutator.CRCR_2_MUTATOR,
-            CRCR3Mutator.CRCR_3_MUTATOR,
-            CRCR4Mutator.CRCR_4_MUTATOR,
-            CRCR5Mutator.CRCR_5_MUTATOR,
-            CRCR6Mutator.CRCR_6_MUTATOR);
   }
 
   private static Collection<MethodMutatorFactory> obbn() {
