@@ -195,7 +195,14 @@ public final class Mutator {
     buildGroup("REMOVE_SWITCH")
         .withMutators(RemoveSwitchMutator.makeMutators());
 
-    addGroup("STRONGER", stronger());
+    buildGroup("STRONGER")
+            .withContentOf("DEFAULTS")
+            .withContentOf("REMOVE_CONDITIONALS_EQ_ELSE")
+            /*
+             * Experimental mutator that swaps labels in switch statements
+             */
+            .withMutator("EXPERIMENTAL_SWITCH", new SwitchMutator());
+
     addGroup("NEW_DEFAULTS", newDefaults());
 
     addGroup("ALL", fromStrings(MUTATORS.keySet()));
@@ -209,11 +216,6 @@ public final class Mutator {
      * Experimental mutator that removed assignments to member variables.
      */
     add("EXPERIMENTAL_MEMBER_VARIABLE", new MemberVariableMutator());
-
-    /**
-     * Experimental mutator that swaps labels in switch statements
-     */
-    add("EXPERIMENTAL_SWITCH", new SwitchMutator());
 
     /**
      * Experimental mutator that replaces method call with one of its parameters
@@ -296,12 +298,6 @@ public final class Mutator {
             .withMutator("UOI2", UOI2Mutator.UOI_2_MUTATOR)
             .withMutator("UOI3", UOI3Mutator.UOI_3_MUTATOR)
             .withMutator("UOI4", UOI4Mutator.UOI_4_MUTATOR);
-  }
-
-  private static Collection<MethodMutatorFactory> stronger() {
-    return combine(fromStrings("DEFAULTS"),
-        group(new RemoveConditionalsMutator(Choice.EQUAL, false),
-            new SwitchMutator()));
   }
 
   private static Collection<MethodMutatorFactory> combine(
@@ -392,6 +388,11 @@ public final class Mutator {
 
     private GroupBuilder withMutators(Iterable<MethodMutatorFactory> mutators) {
       mutators.forEach(groupMutators::add);
+      return this;
+    }
+
+    private GroupBuilder withContentOf(String copiedGroupId) {
+      groupMutators.addAll(fromStrings(copiedGroupId));
       return this;
     }
   }
