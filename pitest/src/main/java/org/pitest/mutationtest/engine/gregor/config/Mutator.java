@@ -307,25 +307,8 @@ public final class Mutator {
             .withMutator("UOI4", UOI4Mutator.UOI_4_MUTATOR);
   }
 
-  private static Collection<MethodMutatorFactory> combine(
-      Collection<MethodMutatorFactory> a, Collection<MethodMutatorFactory> b) {
-    final List<MethodMutatorFactory> l = new ArrayList<>(a);
-    l.addAll(b);
-    return l;
-  }
-
-  private static Collection<MethodMutatorFactory> group(
-      final MethodMutatorFactory... ms) {
-    return asList(ms);
-  }
-
   private static void add(final String key, final MethodMutatorFactory value) {
     MUTATORS.put(key, Collections.singleton(value));
-  }
-
-  private static void addGroup(final String key,
-      final Iterable<MethodMutatorFactory> value) {
-    MUTATORS.put(key, value);
   }
 
   public static Collection<MethodMutatorFactory> fromStrings(String ...names) {
